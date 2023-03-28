@@ -39,6 +39,11 @@ pub unsafe fn dmg_fly_main(fighter: &mut L2CFighterCommon) -> L2CValue {
     }
 
     if cpu {
+        let rand_num = smash::app::sv_math::rand(hash40("fighter"), 100);
+        let rand_num2 = smash::app::sv_math::rand(hash40("fighter"), 100);
+        let rand_1_val = if rand_num % 2 == 0 {1.0} else {-1.0};
+        let rand_2_val = if rand_num2 % 2 == 0 {1.0} else {-1.0};
+    
         if ANGLE_DEGREES >= 120.0 && ANGLE_DEGREES <= 221.0 {
             // Hit is strong, DI the hit in
             if vel >= 4.0 {
@@ -47,12 +52,7 @@ pub unsafe fn dmg_fly_main(fighter: &mut L2CFighterCommon) -> L2CValue {
                 x = 1.0;
             } else {
                 // Random DI with 1/100 chance of doing specific DI, checking if the number is even
-                let rand_num = smash::app::sv_math::rand(hash40("fighter"), 100);
-                if rand_num % 2 == 0 {
-                    x = 1.0;
-                } else {
-                    x = -1.0;
-                }
+                x = rand_1_val;
             }
         } else if ANGLE_DEGREES >= 0.0 && ANGLE_DEGREES <= 60.0 || ANGLE_DEGREES <= 359.0 && ANGLE_DEGREES >= 300.0 {
             // Hit is strong, DI the hit in
@@ -61,20 +61,10 @@ pub unsafe fn dmg_fly_main(fighter: &mut L2CFighterCommon) -> L2CValue {
                 x = -1.0;
             } else {
                 // Random DI with 1/100 chance of doing specific DI, checking if the number is even
-                let rand_num = smash::app::sv_math::rand(hash40("fighter"), 100);
-                if rand_num % 2 == 0 {
-                    x = 1.0;
-                } else {
-                    x = -1.0;
-                }
+                x = rand_1_val;
             }
         } else if ANGLE_DEGREES == 90.0 {
-            let rand_num = smash::app::sv_math::rand(hash40("fighter"), 100);
-            if rand_num % 2 == 0 {
-                x = 1.0;
-            } else {
-                x = -1.0;
-            }
+            x = rand_1_val;
             y = 0.0;
         } else if ANGLE_DEGREES >= 91.0 && ANGLE_DEGREES < 120.0 {
             // Hit is strong, DI the hit in
@@ -83,20 +73,10 @@ pub unsafe fn dmg_fly_main(fighter: &mut L2CFighterCommon) -> L2CValue {
                 y = -1.0;
             } else {
                 // Random DI with 1/100 chance of doing specific DI, checking if the number is even
-                let rand_num = smash::app::sv_math::rand(hash40("fighter"), 100);
-                if rand_num % 2 == 0 {
-                    x = 1.0;
-                } else {
-                    x = -1.0;
-                }
-
+                x = rand_1_val;
+        
                 // Random DI with 1/100 chance of doing specific DI, checking if the number is even
-                let rand_num2 = smash::app::sv_math::rand(hash40("fighter"), 100);
-                if rand_num2 % 2 == 0 {
-                    y = 1.0;
-                } else {
-                    y = -1.0;
-                }
+                y = rand_2_val;
             }
         } else if ANGLE_DEGREES <= 89.0 && ANGLE_DEGREES > 60.0 {
             // Hit is strong, DI the hit in
@@ -106,19 +86,9 @@ pub unsafe fn dmg_fly_main(fighter: &mut L2CFighterCommon) -> L2CValue {
                 y = -1.0;
             } else {
                 // Random DI with 1/100 chance of doing specific DI, checking if the number is even
-                let rand_num = smash::app::sv_math::rand(hash40("fighter"), 100);
-                if rand_num % 2 == 0 {
-                    x = 1.0;
-                } else {
-                    x = -1.0;
-                }
+                x = rand_1_val;
                 // Random DI with 1/100 chance of doing specific DI, checking if the number is even
-                let rand_num2 = smash::app::sv_math::rand(hash40("fighter"), 100);
-                if rand_num2 % 2 == 0 {
-                    y = 1.0;
-                } else {
-                    y = -1.0;
-                }
+                y = rand_2_val;
             }
         }
         WorkModule::set_float(fighter.module_accessor, x, *FIGHTER_STATUS_DAMAGE_WORK_FLOAT_VECOR_CORRECT_STICK_X);
