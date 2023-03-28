@@ -48,7 +48,6 @@ pub unsafe fn dmg_fly_main(fighter: &mut L2CFighterCommon) -> L2CValue {
             // Hit is strong, DI the hit in
             if vel >= 4.0 {
                 // Left DI
-                println!("Left DI");
                 x = 1.0;
             } else {
                 // Random DI with 1/100 chance of doing specific DI, checking if the number is even
